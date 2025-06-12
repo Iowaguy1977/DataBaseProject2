@@ -1,0 +1,19 @@
+<Orders>
+      <order>
+         <Order_ID>4000</Order_ID>
+         <Item_Type>TV</Item_Type>
+         <Item_Name>Sony</Item_Name>
+         <Qty>3</Qty>
+         <Price_Each>2000</Price_Each>
+         <Customer_ID>1</Customer_ID>
+       </order>
+       <order>
+         <Order_ID>4300</Order_ID>
+         <Item_Type>car</Item_Type>
+         <Item_Name>corvette</Item_Name>
+         <Qty>1</Qty>
+         <Price_Each>250000.</Price_Each>
+         <Customer_ID>2</Customer_ID>
+       </order>
+
+</Orders>
