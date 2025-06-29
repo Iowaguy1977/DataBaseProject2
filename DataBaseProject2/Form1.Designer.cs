@@ -42,12 +42,13 @@
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
+            comboBox1 = new ComboBox();
             SuspendLayout();
             // 
             // button1
             // 
             button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(72, 219);
+            button1.Location = new Point(29, 183);
             button1.Name = "button1";
             button1.Size = new Size(157, 34);
             button1.TabIndex = 0;
@@ -58,7 +59,7 @@
             // button2
             // 
             button2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.Location = new Point(327, 219);
+            button2.Location = new Point(268, 183);
             button2.Name = "button2";
             button2.Size = new Size(131, 34);
             button2.TabIndex = 1;
@@ -165,11 +166,21 @@
             label6.TabIndex = 13;
             label6.Text = "Customer_ID";
             // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(29, 304);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(739, 23);
+            comboBox1.TabIndex = 14;
+            comboBox1.SelectionChangeCommitted += comboBox1_SelectionChangeCommitted;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(comboBox1);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -206,5 +217,6 @@
         private Label label4;
         private Label label5;
         private Label label6;
+        private ComboBox comboBox1;
     }
 }

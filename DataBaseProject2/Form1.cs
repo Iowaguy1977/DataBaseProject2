@@ -2,6 +2,8 @@ using System;
 using System.Data;
 using System.DirectoryServices.ActiveDirectory;
 using System.IO;
+using System.Runtime.Serialization.DataContracts;
+using System.Xml;
 using System.Xml.Serialization;
 using Dapper;
 using Microsoft.Data.SqlClient;
@@ -14,9 +16,15 @@ namespace DataBaseProject2
     public partial class Form1 : Form
     {
         readonly String connectionString = "Data Source=DESKTOP-8AR155P;Initial Catalog=DBProject1;Integrated Security=True;Trust Server Certificate=True";
+        private DataTable orderdatatable;
+        private DataTable dt = new DataTable();
+
         public Form1()
         {
             InitializeComponent();
+          
+
+            LoadOrders();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -53,25 +61,28 @@ namespace DataBaseProject2
                         connection.Open();
                         _ = connection.Execute(sql, new { Item_Type = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Item_Type, Item_Name = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Item_Name, Qty = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Qty, Price_Each = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Price_Each, Customer_ID = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Customer_ID });
                         connection.Close();
+
                     }
 
 
 
                 }
+
             }
-            String pulleddata = "select * from Orders for XML Auto, ROOT('Orders'),ELEMENTS";
+            String pulleddata = "select * from Orders for XML PATH('order'), Root('Orders')";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(pulleddata, conn))
                 {
                     conn.Open();
-                    String Output = (String)cmd.ExecuteScalar();
-                    File.WriteAllText("C:\\Users\\chris\\source\\repos\\DataBaseProject2\\DatabaseProject2.xml.txt", Output);
-
-                    conn.Close();
+                    using (XmlReader reader = cmd.ExecuteXmlReader())
+                    {
+                        XmlDocument doc = new XmlDocument();
+                        List<order> orderlist = new List<order>();
+                        doc.Load(reader);
+                        doc.Save("C:\\Users\\chris\\source\\repos\\DataBaseProject2\\DatabaseProject2.xml.txt");
+                    }
                 }
-
-                MessageBox.Show("Textfile Created successfully!");
             }
 
 
@@ -82,7 +93,7 @@ namespace DataBaseProject2
         private void button2_Click(object sender, EventArgs e)
         {
             Orders orders = new Orders();
-            String pulleddata = "select * from Orders for XML Auto, ROOT('Orders'),ELEMENTS";
+            String pulleddata = "select * from Orders for XML Auto, ROOT('Orders')";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(pulleddata, conn))
@@ -122,6 +133,67 @@ namespace DataBaseProject2
             if (!char.IsDigit(ch) && ch != 8)
             {
                 e.Handled = true; // Prevents the character from being entered
+            }
+        }
+        private void LoadOrders()
+        {
+
+            const string sql = "SELECT * FROM Orders";
+            using (var connection = new SqlConnection(connectionString))
+            {
+                List<order> orderlist = new List<order>();
+                String fullorder = "Order_ID, Item_Type, Item_Name, Qty, Price_Each, Customer_ID, fullorder = CONCAT(Order_ID, ' ', Item_Type, ' ', Item_Name, ' ', Qty, ' ', Price_Each, ' ', Customer_ID)";
+                connection.Open();
+                using (var command = new SqlCommand(sql, connection))
+                using (var adapter = new SqlDataAdapter(command))
+                {
+                    adapter.Fill(dt);
+
+                    dt.Columns.Add("fullorder", typeof(string));
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        row["fullorder"] = $"{row["Order_ID"]} {row["Item_Type"]} {row["Item_Name"]} {row["Qty"]} {row["Price_Each"]} {row["Customer_ID"]}";
+                    }
+                    comboBox1.DataSource = dt;
+
+                    comboBox1.ValueMember = "fullorder";
+                }
+            }
+        }
+
+
+
+       
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+
+            var drv = comboBox1.SelectedItem as DataRowView;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT * FROM Orders";
+                using (var command = new SqlCommand(query, connection))
+                using (var adapter = new SqlDataAdapter(command))
+                {
+                    adapter.Fill(dt);
+
+                }
+            }
+
+
+
+
+            if (drv != null)
+            {
+                textBox1.Text = drv.Row["Order_ID"].ToString();
+                textBox2.Text = drv.Row["Item_Type"].ToString();
+                textBox3.Text = drv.Row["Item_Name"].ToString();
+                textBox4.Text = drv.Row["Qty"].ToString();
+                textBox5.Text = drv.Row["Price_Each"].ToString();
+                textBox6.Text = drv.Row["Customer_ID"].ToString();
+
+
             }
         }
     }
