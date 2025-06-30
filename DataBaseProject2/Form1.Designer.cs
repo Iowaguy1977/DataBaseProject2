@@ -48,22 +48,22 @@
             // button1
             // 
             button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(29, 183);
+            button1.Location = new Point(277, 183);
             button1.Name = "button1";
-            button1.Size = new Size(157, 34);
-            button1.TabIndex = 0;
-            button1.Text = "Add to Database";
+            button1.Size = new Size(181, 34);
+            button1.TabIndex = 8;
+            button1.Text = "Add Order to Database";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // button2
             // 
             button2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.Location = new Point(268, 183);
+            button2.Location = new Point(83, 183);
             button2.Name = "button2";
-            button2.Size = new Size(131, 34);
-            button2.TabIndex = 1;
-            button2.Text = "Write to Textfile";
+            button2.Size = new Size(146, 34);
+            button2.TabIndex = 7;
+            button2.Text = "Create New Order";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
@@ -72,7 +72,7 @@
             textBox1.Location = new Point(129, 28);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 2;
+            textBox1.TabIndex = 1;
             textBox1.KeyPress += textBox1_KeyPress;
             // 
             // textBox2
@@ -80,21 +80,21 @@
             textBox2.Location = new Point(129, 74);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(100, 23);
-            textBox2.TabIndex = 3;
+            textBox2.TabIndex = 2;
             // 
             // textBox3
             // 
             textBox3.Location = new Point(129, 131);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(100, 23);
-            textBox3.TabIndex = 4;
+            textBox3.TabIndex = 3;
             // 
             // textBox4
             // 
             textBox4.Location = new Point(358, 28);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(100, 23);
-            textBox4.TabIndex = 5;
+            textBox4.TabIndex = 4;
             textBox4.KeyPress += textBox4_KeyPress;
             // 
             // textBox5
@@ -102,14 +102,14 @@
             textBox5.Location = new Point(358, 74);
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(100, 23);
-            textBox5.TabIndex = 6;
+            textBox5.TabIndex = 5;
             // 
             // textBox6
             // 
             textBox6.Location = new Point(358, 131);
             textBox6.Name = "textBox6";
             textBox6.Size = new Size(100, 23);
-            textBox6.TabIndex = 7;
+            textBox6.TabIndex = 6;
             textBox6.KeyPress += textBox6_KeyPress;
             // 
             // label1

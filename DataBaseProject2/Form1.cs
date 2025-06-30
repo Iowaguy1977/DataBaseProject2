@@ -22,13 +22,55 @@ namespace DataBaseProject2
         public Form1()
         {
             InitializeComponent();
-          
-
             LoadOrders();
+            this.ActiveControl = textBox1;
+
+        }
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            textBox1.Focus();
+           
+            
+        }
+        private void ReLoadCombo()
+        {
+           
+            comboBox1.DataSource = null;
+            comboBox1.Items.Clear();
+            textBox1.Focus();
+            const string sql = "SELECT * FROM Orders";
+            using (var connection = new SqlConnection(connectionString))
+            {
+                List<order> orderlist = new List<order>();
+    
+                connection.Open();
+                using (var command = new SqlCommand(sql, connection))
+                using (var adapter = new SqlDataAdapter(command))
+                {
+                    adapter.Fill(dt);
+
+                    dt.Columns.Add("updateOrder", typeof(string));
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        row["updateOrder"] = $"{row["Order_ID"]} {row["Item_Type"]} {row["Item_Name"]} {row["Qty"]} {row["Price_Each"]} {row["Customer_ID"]}";
+                    }
+
+                    comboBox1.DataSource = dt;
+                    comboBox1.ValueMember = "updateOrder";
+               
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            if (textBox1.Text == string.Empty || textBox2.Text == string.Empty || textBox3.Text == string.Empty || textBox4.Text == string.Empty || textBox5.Text == string.Empty || textBox6.Text == string.Empty)
+            {
+                MessageBox.Show("Please fill in all fields before submitting.");
+                textBox1.Focus();
+                return;
+            }
             double result;
             if (!double.TryParse(textBox5.Text, out result))
             {
@@ -49,7 +91,7 @@ namespace DataBaseProject2
                 using (var connection = new SqlConnection(connectionString))
                 {
                     MessageBoxButtons buttons = MessageBoxButtons.OKCancel;
-                    MessageBox.Show("Are you sure you want to add this order?", "Confirmation", buttons);
+                    MessageBox.Show("Are you sure you want to Update this order?", "Confirmation", buttons);
                     if (buttons.Equals(DialogResult.Cancel))
                     {
                         return;
@@ -92,21 +134,69 @@ namespace DataBaseProject2
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Orders orders = new Orders();
-            String pulleddata = "select * from Orders for XML Auto, ROOT('Orders')";
+            if(textBox1.Text == string.Empty || textBox2.Text == string.Empty || textBox3.Text == string.Empty || textBox4.Text == string.Empty || textBox5.Text == string.Empty || textBox6.Text == string.Empty)
+            {
+                MessageBox.Show("Please fill in all fields before submitting.");
+                textBox1.Focus();
+                return;
+            }
+            double result;
+            if (!double.TryParse(textBox5.Text, out result))
+            {
+                MessageBox.Show("Please enter a valid price for Price Each.");
+                return;
+            }
+
+            string sql = "INSERT INTO Orders (Item_Type,Item_Name,Qty,Price_Each,Customer_ID) VALUES (@Item_Type,@Item_Name, @Qty, @Price_Each, @Customer_ID)";
+            string filepath = "C:\\Users\\chris\\source\\repos\\DataBaseProject2\\DatabaseProject2.xml.txt";
+            XmlSerializer serializer = new XmlSerializer(typeof(Orders));
+            using (FileStream fs = new FileStream(filepath, FileMode.Open))
+            {
+                Orders orders = (Orders)serializer.Deserialize(fs);
+                orders.orderlist.Add(new order { Order_ID = Convert.ToInt32(textBox1.Text), Item_Type = textBox2.Text, Item_Name = textBox3.Text, Qty = Convert.ToInt32(textBox4.Text), Price_Each = Convert.ToDouble(textBox5.Text), Customer_ID = Convert.ToInt32(textBox6.Text) });
+
+
+
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    MessageBoxButtons buttons = MessageBoxButtons.OKCancel;
+                    MessageBox.Show("Are you sure you want to Create this order?", "Confirmation", buttons);
+                    if (buttons.Equals(DialogResult.Cancel))
+                    {
+                        return;
+                        { connection.Close(); }
+
+                    }
+                    else
+                    {
+                        connection.Open();
+                        _ = connection.Execute(sql, new { Item_Type = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Item_Type, Item_Name = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Item_Name, Qty = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Qty, Price_Each = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Price_Each, Customer_ID = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Customer_ID });
+                        connection.Close();
+
+                    }
+
+
+
+                }
+              
+            }
+            String pulleddata = "select * from Orders for XML PATH('order'), Root('Orders')";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(pulleddata, conn))
                 {
                     conn.Open();
-                    String Output = (String)cmd.ExecuteScalar();
-                    File.WriteAllText("C:\\Users\\chris\\source\\repos\\DataBaseProject2\\DatabaseProject2.xml.txt", Output);
-
-                    conn.Close();
+                    using (XmlReader reader = cmd.ExecuteXmlReader())
+                    {
+                        XmlDocument doc = new XmlDocument();
+                        List<order> orderlist = new List<order>();
+                        doc.Load(reader);
+                        doc.Save("C:\\Users\\chris\\source\\repos\\DataBaseProject2\\DatabaseProject2.xml.txt");
+                    }
                 }
-
-
             }
+          
+            ReLoadCombo();
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -137,12 +227,11 @@ namespace DataBaseProject2
         }
         private void LoadOrders()
         {
-
+            textBox1.Focus();
             const string sql = "SELECT * FROM Orders";
             using (var connection = new SqlConnection(connectionString))
             {
-                List<order> orderlist = new List<order>();
-                String fullorder = "Order_ID, Item_Type, Item_Name, Qty, Price_Each, Customer_ID, fullorder = CONCAT(Order_ID, ' ', Item_Type, ' ', Item_Name, ' ', Qty, ' ', Price_Each, ' ', Customer_ID)";
+                
                 connection.Open();
                 using (var command = new SqlCommand(sql, connection))
                 using (var adapter = new SqlDataAdapter(command))
@@ -155,7 +244,6 @@ namespace DataBaseProject2
                         row["fullorder"] = $"{row["Order_ID"]} {row["Item_Type"]} {row["Item_Name"]} {row["Qty"]} {row["Price_Each"]} {row["Customer_ID"]}";
                     }
                     comboBox1.DataSource = dt;
-
                     comboBox1.ValueMember = "fullorder";
                 }
             }
@@ -167,7 +255,7 @@ namespace DataBaseProject2
 
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-
+            
             var drv = comboBox1.SelectedItem as DataRowView;
             using (var connection = new SqlConnection(connectionString))
             {

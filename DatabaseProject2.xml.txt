@@ -8,19 +8,11 @@
     <Customer_ID>1</Customer_ID>
   </order>
   <order>
-    <Order_ID>3125</Order_ID>
-    <Item_Type>chillis</Item_Type>
-    <Item_Name>Jalapeno</Item_Name>
-    <Qty>76</Qty>
-    <Price_Each>246.0000</Price_Each>
-    <Customer_ID>1</Customer_ID>
-  </order>
-  <order>
-    <Order_ID>3126</Order_ID>
-    <Item_Type>chillis</Item_Type>
-    <Item_Name>fuck</Item_Name>
-    <Qty>76</Qty>
-    <Price_Each>765.0000</Price_Each>
+    <Order_ID>3175</Order_ID>
+    <Item_Type>Games</Item_Type>
+    <Item_Name>Frogger</Item_Name>
+    <Qty>2</Qty>
+    <Price_Each>123.0000</Price_Each>
     <Customer_ID>1</Customer_ID>
   </order>
 </Orders>
