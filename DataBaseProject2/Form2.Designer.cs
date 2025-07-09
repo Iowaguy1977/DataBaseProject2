@@ -47,7 +47,7 @@
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Order_ID, Item_Type, Item_Name, Qty, Price_Each, Customer_ID });
             dataGridView1.Location = new Point(63, 183);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(645, 159);
+            dataGridView1.Size = new Size(649, 86);
             dataGridView1.TabIndex = 16;
             // 
             // Order_ID

@@ -51,7 +51,7 @@ namespace DataBaseProject2
                 return;
             }
 
-            string sql = "INSERT INTO Orders (Item_Type,Item_Name,Qty,Price_Each,Customer_ID) VALUES (@Item_Type,@Item_Name, @Qty, @Price_Each, @Customer_ID)";
+            string sql = "UPDATE Orders SET Item_Type=@Item_Type,Item_Name=@Item_Name,Qty=@Qty,Price_Each=@Price_Each,Customer_ID=@Customer_ID  WHERE Order_ID=@Order_ID";
             string filepath = "C:\\Users\\chris\\source\\repos\\DataBaseProject2\\DatabaseProject2.xml.txt";
             XmlSerializer serializer = new XmlSerializer(typeof(Orders));
             using (FileStream fs = new FileStream(filepath, FileMode.Open))
@@ -74,11 +74,11 @@ namespace DataBaseProject2
                     else
                     {
                         connection.Open();
-                        _ = connection.Execute(sql, new { Item_Type = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Item_Type, Item_Name = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Item_Name, Qty = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Qty, Price_Each = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Price_Each, Customer_ID = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Customer_ID });
+                        _ = connection.Execute(sql, new {Order_ID=orders.orderlist.ElementAt(orders.orderlist.Count-1).Order_ID, Item_Type = orders.orderlist.ElementAt(orders.orderlist.Count-1 ).Item_Type, Item_Name = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Item_Name, Qty = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Qty, Price_Each = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Price_Each, Customer_ID = orders.orderlist.ElementAt(orders.orderlist.Count - 1).Customer_ID });
                         connection.Close();
 
                     }
-
+                    MessageBox.Show("Order Updated Successfully!");
 
 
                 }

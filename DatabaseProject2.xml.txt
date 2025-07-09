@@ -33,8 +33,8 @@
   </order>
   <order>
     <Order_ID>3191</Order_ID>
-    <Item_Type>fuckeer</Item_Type>
-    <Item_Name>jkbkbj</Item_Name>
+    <Item_Type>car</Item_Type>
+    <Item_Name>lambo</Item_Name>
     <Qty>22</Qty>
     <Price_Each>342.0000</Price_Each>
     <Customer_ID>1</Customer_ID>
@@ -57,8 +57,8 @@
   </order>
   <order>
     <Order_ID>3194</Order_ID>
-    <Item_Type>fucker</Item_Type>
-    <Item_Name>jkbkbj</Item_Name>
+    <Item_Type>instrument</Item_Type>
+    <Item_Name>tubba</Item_Name>
     <Qty>22</Qty>
     <Price_Each>342.0000</Price_Each>
     <Customer_ID>1</Customer_ID>
