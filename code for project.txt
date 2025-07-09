@@ -1,0 +1,137 @@
+ private void ReLoadCombo()
+ {
+    
+     
+
+     string sql = "SELECT * FROM Orders Where Order_ID = @OrderId";
+     using (var connection = new SqlConnection(connectionString))
+     {
+        
+    
+         connection.Open();
+         using (var command = new SqlCommand(sql, connection))
+         using (var adapter = new SqlDataAdapter(command))
+         {
+             command.Parameters.AddWithValue("@OrderId", selected);
+            
+             
+             adapter.Fill(dt);
+             dt.Columns.Add("selectedValue", typeof(string));
+             foreach (DataRow row in dt.Rows)
+             {
+
+                 dataGridView1.Rows.Clear();
+                 dataGridView1.Rows.Add(row["selectedValue".ToString()] = $"{row["Order_ID"]}", row["Item_Type"] = $"{row["Item_Type"]}", row["Item_Name"] = $"{row["Item_Name"]}", row["Qty"] = $"{row["Qty"]}", row["Price_Each"] = $"{row["Price_Each"]}", row["Customer_ID"] = $"{row["Customer_ID"]}");
+             }
+           
+            
+            
+             dt.Columns.Remove("selectedValue".ToString());
+            
+             LoadOrders();
+
+         }
+     }
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ private void LoadOrders()
+ {
+    
+     dt.Clear();
+     comboBox1.DataSource = null;
+     comboBox1.Items.Clear();
+     textBox1.Focus();
+     const string sql = "SELECT * FROM Orders";
+     using (var connection = new SqlConnection(connectionString))
+     {
+         
+         connection.Open();
+         using (var command = new SqlCommand(sql, connection))
+         using (var adapter = new SqlDataAdapter(command))
+         {
+             adapter.Fill(dt);
+             
+            
+             comboBox1.DisplayMember = "Order_ID";
+             comboBox1.DataSource = dt;
+             comboBox1.ValueMember = "Order_ID";
+            
+         }
+     }
+     
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+  {
+     
+      selected = comboBox1.SelectedValue.ToString();
+      var drv = comboBox1.SelectedItem as DataRowView;
+      using (var connection = new SqlConnection(connectionString))
+      {
+          connection.Open();
+
+
+
+
+          if (drv != null)
+          {
+              textBox1.Text = drv.Row["Order_ID"].ToString();
+              textBox2.Text = drv.Row["Item_Type"].ToString();
+              textBox3.Text = drv.Row["Item_Name"].ToString();
+              textBox4.Text = drv.Row["Qty"].ToString();
+              textBox5.Text = drv.Row["Price_Each"].ToString();
+              textBox6.Text = drv.Row["Customer_ID"].ToString();
+
+
+          }
+
+          dt.Clear();
+          comboBox1.DataSource = null;
+          comboBox1.Items.Clear();
+          ReLoadCombo();
+         
+      }
+  }
+
+
+
+
+
+
+
+
+

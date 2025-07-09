@@ -42,80 +42,107 @@
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
-            comboBox1 = new ComboBox();
+            sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
+            button3 = new Button();
             SuspendLayout();
             // 
             // button1
             // 
+            button1.BackColor = Color.FromArgb(180, 128, 80);
             button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(277, 183);
+            button1.Location = new Point(337, 157);
             button1.Name = "button1";
-            button1.Size = new Size(181, 34);
+            button1.Size = new Size(121, 34);
             button1.TabIndex = 8;
-            button1.Text = "Add Order to Database";
-            button1.UseVisualStyleBackColor = true;
+            button1.Text = "Update Order ";
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // button2
             // 
+            button2.BackColor = Color.FromArgb(180, 128, 90);
             button2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.Location = new Point(83, 183);
+            button2.Location = new Point(83, 157);
             button2.Name = "button2";
             button2.Size = new Size(146, 34);
             button2.TabIndex = 7;
-            button2.Text = "Create New Order";
-            button2.UseVisualStyleBackColor = true;
+            button2.Text = "Create this Order";
+            button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
             // textBox1
             // 
+            textBox1.BackColor = Color.FromArgb(255, 185, 90);
+            textBox1.BorderStyle = BorderStyle.FixedSingle;
+            textBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox1.ForeColor = Color.DimGray;
             textBox1.Location = new Point(129, 28);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
+            textBox1.Size = new Size(100, 29);
             textBox1.TabIndex = 1;
             textBox1.KeyPress += textBox1_KeyPress;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(129, 74);
+            textBox2.BackColor = Color.FromArgb(255, 185, 90);
+            textBox2.BorderStyle = BorderStyle.FixedSingle;
+            textBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox2.ForeColor = Color.DimGray;
+            textBox2.Location = new Point(358, 28);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(100, 23);
+            textBox2.Size = new Size(100, 29);
             textBox2.TabIndex = 2;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(129, 131);
+            textBox3.BackColor = Color.FromArgb(255, 185, 90);
+            textBox3.BorderStyle = BorderStyle.FixedSingle;
+            textBox3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox3.ForeColor = Color.DimGray;
+            textBox3.Location = new Point(578, 28);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(100, 23);
+            textBox3.Size = new Size(100, 29);
             textBox3.TabIndex = 3;
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(358, 28);
+            textBox4.BackColor = Color.FromArgb(255, 185, 90);
+            textBox4.BorderStyle = BorderStyle.FixedSingle;
+            textBox4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox4.ForeColor = Color.DimGray;
+            textBox4.Location = new Point(129, 84);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(100, 23);
+            textBox4.Size = new Size(100, 29);
             textBox4.TabIndex = 4;
             textBox4.KeyPress += textBox4_KeyPress;
             // 
             // textBox5
             // 
-            textBox5.Location = new Point(358, 74);
+            textBox5.BackColor = Color.FromArgb(255, 185, 90);
+            textBox5.BorderStyle = BorderStyle.FixedSingle;
+            textBox5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox5.ForeColor = Color.DimGray;
+            textBox5.Location = new Point(358, 84);
             textBox5.Name = "textBox5";
-            textBox5.Size = new Size(100, 23);
+            textBox5.Size = new Size(100, 29);
             textBox5.TabIndex = 5;
             // 
             // textBox6
             // 
-            textBox6.Location = new Point(358, 131);
+            textBox6.BackColor = Color.FromArgb(255, 180, 90);
+            textBox6.BorderStyle = BorderStyle.FixedSingle;
+            textBox6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox6.ForeColor = Color.DimGray;
+            textBox6.Location = new Point(578, 84);
             textBox6.Name = "textBox6";
-            textBox6.Size = new Size(100, 23);
+            textBox6.Size = new Size(100, 29);
             textBox6.TabIndex = 6;
             textBox6.KeyPress += textBox6_KeyPress;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(29, 36);
+            label1.Location = new Point(33, 31);
             label1.Name = "label1";
             label1.Size = new Size(53, 15);
             label1.TabIndex = 8;
@@ -124,7 +151,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(29, 82);
+            label2.Location = new Point(268, 31);
             label2.Name = "label2";
             label2.Size = new Size(63, 15);
             label2.TabIndex = 9;
@@ -133,7 +160,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(29, 139);
+            label3.Location = new Point(483, 31);
             label3.Name = "label3";
             label3.Size = new Size(68, 15);
             label3.TabIndex = 10;
@@ -142,7 +169,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(281, 36);
+            label4.Location = new Point(33, 87);
             label4.Name = "label4";
             label4.Size = new Size(26, 15);
             label4.TabIndex = 11;
@@ -151,7 +178,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(268, 82);
+            label5.Location = new Point(268, 87);
             label5.Name = "label5";
             label5.Size = new Size(63, 15);
             label5.TabIndex = 12;
@@ -160,27 +187,36 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(268, 139);
+            label6.Location = new Point(483, 87);
             label6.Name = "label6";
             label6.Size = new Size(75, 15);
             label6.TabIndex = 13;
             label6.Text = "Customer_ID";
             // 
-            // comboBox1
+            // sqlCommand1
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(29, 304);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(739, 23);
-            comboBox1.TabIndex = 14;
-            comboBox1.SelectionChangeCommitted += comboBox1_SelectionChangeCommitted;
+            sqlCommand1.CommandTimeout = 30;
+            sqlCommand1.EnableOptimizedParameterBinding = false;
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.FromArgb(180, 128, 80);
+            button3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button3.Location = new Point(534, 157);
+            button3.Name = "button3";
+            button3.Size = new Size(144, 34);
+            button3.TabIndex = 14;
+            button3.Text = "Search Database";
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(255, 192, 128);
             ClientSize = new Size(800, 450);
-            Controls.Add(comboBox1);
+            Controls.Add(button3);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -195,6 +231,7 @@
             Controls.Add(textBox1);
             Controls.Add(button2);
             Controls.Add(button1);
+            ForeColor = SystemColors.Desktop;
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
@@ -205,18 +242,19 @@
 
         private Button button1;
         private Button button2;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox4;
-        private TextBox textBox5;
-        private TextBox textBox6;
         private Label label1;
         private Label label2;
         private Label label3;
         private Label label4;
         private Label label5;
         private Label label6;
-        private ComboBox comboBox1;
+        private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
+        private Button button3;
+        public TextBox textBox1;
+        public TextBox textBox2;
+        public TextBox textBox3;
+        public TextBox textBox4;
+        public TextBox textBox5;
+        public TextBox textBox6;
     }
 }

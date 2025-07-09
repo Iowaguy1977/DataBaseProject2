@@ -18,49 +18,22 @@ namespace DataBaseProject2
         readonly String connectionString = "Data Source=DESKTOP-8AR155P;Initial Catalog=DBProject1;Integrated Security=True;Trust Server Certificate=True";
         private DataTable orderdatatable;
         private DataTable dt = new DataTable();
+        string selected = string.Empty;
 
         public Form1()
         {
             InitializeComponent();
-            LoadOrders();
+
             this.ActiveControl = textBox1;
 
         }
         private void Form1_Activated(object sender, EventArgs e)
         {
             textBox1.Focus();
-           
-            
-        }
-        private void ReLoadCombo()
-        {
-           
-            comboBox1.DataSource = null;
-            comboBox1.Items.Clear();
-            textBox1.Focus();
-            const string sql = "SELECT * FROM Orders";
-            using (var connection = new SqlConnection(connectionString))
-            {
-                List<order> orderlist = new List<order>();
-    
-                connection.Open();
-                using (var command = new SqlCommand(sql, connection))
-                using (var adapter = new SqlDataAdapter(command))
-                {
-                    adapter.Fill(dt);
 
-                    dt.Columns.Add("updateOrder", typeof(string));
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        row["updateOrder"] = $"{row["Order_ID"]} {row["Item_Type"]} {row["Item_Name"]} {row["Qty"]} {row["Price_Each"]} {row["Customer_ID"]}";
-                    }
 
-                    comboBox1.DataSource = dt;
-                    comboBox1.ValueMember = "updateOrder";
-               
-                }
-            }
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -134,7 +107,7 @@ namespace DataBaseProject2
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if(textBox1.Text == string.Empty || textBox2.Text == string.Empty || textBox3.Text == string.Empty || textBox4.Text == string.Empty || textBox5.Text == string.Empty || textBox6.Text == string.Empty)
+            if (textBox1.Text == string.Empty || textBox2.Text == string.Empty || textBox3.Text == string.Empty || textBox4.Text == string.Empty || textBox5.Text == string.Empty || textBox6.Text == string.Empty)
             {
                 MessageBox.Show("Please fill in all fields before submitting.");
                 textBox1.Focus();
@@ -178,7 +151,7 @@ namespace DataBaseProject2
 
 
                 }
-              
+
             }
             String pulleddata = "select * from Orders for XML PATH('order'), Root('Orders')";
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -195,8 +168,8 @@ namespace DataBaseProject2
                     }
                 }
             }
-          
-            ReLoadCombo();
+
+
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -222,67 +195,14 @@ namespace DataBaseProject2
             char ch = e.KeyChar;
             if (!char.IsDigit(ch) && ch != 8)
             {
-                e.Handled = true; // Prevents the character from being entered
-            }
-        }
-        private void LoadOrders()
-        {
-            textBox1.Focus();
-            const string sql = "SELECT * FROM Orders";
-            using (var connection = new SqlConnection(connectionString))
-            {
-                
-                connection.Open();
-                using (var command = new SqlCommand(sql, connection))
-                using (var adapter = new SqlDataAdapter(command))
-                {
-                    adapter.Fill(dt);
-
-                    dt.Columns.Add("fullorder", typeof(string));
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        row["fullorder"] = $"{row["Order_ID"]} {row["Item_Type"]} {row["Item_Name"]} {row["Qty"]} {row["Price_Each"]} {row["Customer_ID"]}";
-                    }
-                    comboBox1.DataSource = dt;
-                    comboBox1.ValueMember = "fullorder";
-                }
+                e.Handled = true;
             }
         }
 
-
-
-       
-
-        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-            
-            var drv = comboBox1.SelectedItem as DataRowView;
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                string query = "SELECT * FROM Orders";
-                using (var command = new SqlCommand(query, connection))
-                using (var adapter = new SqlDataAdapter(command))
-                {
-                    adapter.Fill(dt);
-
-                }
-            }
-
-
-
-
-            if (drv != null)
-            {
-                textBox1.Text = drv.Row["Order_ID"].ToString();
-                textBox2.Text = drv.Row["Item_Type"].ToString();
-                textBox3.Text = drv.Row["Item_Name"].ToString();
-                textBox4.Text = drv.Row["Qty"].ToString();
-                textBox5.Text = drv.Row["Price_Each"].ToString();
-                textBox6.Text = drv.Row["Customer_ID"].ToString();
-
-
-            }
+            Form2 form2 = new Form2(this);
+            form2.Show();
         }
     }
 }
