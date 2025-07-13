@@ -38,6 +38,7 @@ namespace DataBaseProject2
             comboBox1.DataSource = null;
             comboBox1.Items.Clear();
             textBox1.Focus();
+            // Why is the code below in this form? All connections should be done in a connection object.
             const string sql = "SELECT * FROM Orders";
             using (var connection = new SqlConnection(connectionString))
             {
@@ -79,6 +80,7 @@ namespace DataBaseProject2
             }
 
             string sql = "INSERT INTO Orders (Item_Type,Item_Name,Qty,Price_Each,Customer_ID) VALUES (@Item_Type,@Item_Name, @Qty, @Price_Each, @Customer_ID)";
+            // Why is this code here? All file access code should be in a seperate class of its own.
             string filepath = "C:\\Users\\chris\\source\\repos\\DataBaseProject2\\DatabaseProject2.xml.txt";
             XmlSerializer serializer = new XmlSerializer(typeof(Orders));
             using (FileStream fs = new FileStream(filepath, FileMode.Open))
@@ -111,6 +113,7 @@ namespace DataBaseProject2
                 }
 
             }
+            // This code should be in its own class
             String pulleddata = "select * from Orders for XML PATH('order'), Root('Orders')";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -228,6 +231,7 @@ namespace DataBaseProject2
         private void LoadOrders()
         {
             textBox1.Focus();
+            // This code should be in its own class
             const string sql = "SELECT * FROM Orders";
             using (var connection = new SqlConnection(connectionString))
             {
@@ -257,6 +261,7 @@ namespace DataBaseProject2
         {
             
             var drv = comboBox1.SelectedItem as DataRowView;
+            // Why is this not in its own class?
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
